@@ -22,6 +22,8 @@ router.post('/api/notes', (req, res) => {
             res.json({success: true});
         });
     });
-});
+router.delete('/api/notes/:id', (req, res) => {
+
+}
 
 module.exports = router;

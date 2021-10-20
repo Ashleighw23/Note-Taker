@@ -22,8 +22,19 @@ router.post('/api/notes', (req, res) => {
             res.json({success: true});
         });
     });
-router.delete('/api/notes/:id', (req, res) => {
+});
 
-}
+router.delete('/api/notes/:id', (req, res) => {
+    const id = req.params.id;
+
+    return fs.readFile(path.join(__dirname,'../db/db.json'), "utf8", (err, data) => {
+        if (err) throw err;
+        const allNotes = JSON.parse(data);
+        const filteredData = allNotes.filter((note) => note.id !== id);
+        fs.writeFile(path.join(__dirname,'../db/db.json'), JSON.stringify(filteredData), "utf8", () => {
+            res.json({success: true});
+        });
+    });
+});
 
 module.exports = router;
